@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 extern int count_assign, count_compare;
 

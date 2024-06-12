@@ -7,11 +7,19 @@ int count_compare, count_assign;
 
 
 
-int main()
+int main(int argc, char* argv[])
 {
     int arr[7] = {5, 8, 7, 1, 9, 6, 3};
     int n = 7;
 
+    string algorithm= argv[2];
+    int inputSize = stoi(argv[3]);
+    string outputParam = argv[4];
+
+    cout << "Algorithm: " << algorithm << '\n';
+    cout << "Input Size: " << inputSize << '\n';
+    cout << "Output Parameter: " << outputParam << '\n';
+    
     count_compare = 0; count_assign = 0;
     //bubbleSort(arr, n);
     //insertionSort(arr, n);
