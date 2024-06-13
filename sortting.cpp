@@ -1,7 +1,7 @@
 #include <iostream>
-using namespace std;
+#include "includes/sortting.h"
 
-extern int count_compare, count_assign;
+using namespace std;
 
 void bubbleSort(int arr[], int n)
 {
@@ -29,6 +29,7 @@ void printArr(int arr[], int n)
     }
     cout << '\n';
 }
+
 
 void insertionSort(int arr[], int n)
 {
@@ -146,12 +147,10 @@ void heapSort(int arr[], int n)
     while(r > 0)
     {
         swap(arr[0], arr[r]);
-        cout << "Before sort:\n"; printArr(arr, n);
 
         //maxHeapRebuild(arr, r, 0); //maxHeap will make a ascending sort and vice versa
         minHeapRebuild(arr, r, 0);
 
-        cout << "After sort:\n"; printArr(arr, n);
         r--;
     }
 }

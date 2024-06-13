@@ -16,3 +16,5 @@ void heapRebuild(int arr[], int n, int pos);
 void heapConstruction(int arr[], int n);
 
 void heapSort(int arr[], int n);
+
+void selectionSort(int arr[], int n);
