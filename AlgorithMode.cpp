@@ -1,5 +1,4 @@
-#include <cstring>
-#include "includes/sortting.h"
+#include "includes/includes.h"
 const char* QUICK = "quick";
 const char* MERGE = "merge";
 const char* BUBBLE = "bubble";
@@ -11,8 +10,8 @@ typedef void (*function)(int*, int);
 
 function chooseAlgorithm(char* argv)
 {
-    if (strcmp(argv, HEAP) == 1) return heapSort;
-    else if (strcmp(argv, BUBBLE)) return bubbleSort;
-    else if (strcmp(argv, INSERT)) return insertionSort;
-    else if (strcmp(argv, SELECT)) return selectionSort;
+    if (strcmp(argv, HEAP) == 0) return heapSort;
+    else if (strcmp(argv, BUBBLE) == 0) return bubbleSort;
+    else if (strcmp(argv, INSERT) == 0) return insertionSort;
+    else if (strcmp(argv, SELECT) == 0) return selectionSort;
 }

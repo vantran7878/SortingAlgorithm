@@ -1,25 +1,34 @@
-#include <iostream>
-#include "includes/sortting.h"
-#include "includes/AlgorithmMode.h"
+#include "includes/includes.h"
 using namespace std;
 
-int count_compare, count_assign;
-typedef void (*function)(int*, int);
+unsigned long count_compare, count_assign;
+typedef void (*func)(int*, int);
 
 /// sort descending: max at first
 
 int main(int argc, char* argv[])
 {
-    int arr[7] = {5, 8, 7, 1, 9, 6, 3};
-    int n = 7;
+    srand(time(0));
+    int n = 30000;
+    int* arr = generateRandom(n);
     count_compare = 0; count_assign = 0;
-    function sortFunc = chooseAlgorithm(argv[2]);
+    func sortFunc = chooseAlgorithm(argv[2]);
+    
+    auto start = chrono::system_clock::now();
     sortFunc(arr, n);
+    auto end = chrono::system_clock::now();
+
+    auto millis = chrono::duration_cast <chrono::milliseconds>(end - start).count();
+
+    auto seconds = millis / 1000;
+    auto milliseconds = millis % 1000;
 //    int inputSize = stoi(argv[3]);
 //    string outputParam = argv[4];
     
-    printArr(arr, n);
-    cout << count_compare << '\n' << count_assign <<'\n';
+    //printArr(arr, n);
+    cout << "Time: " << seconds << "." << setw(10) << setfill('0') << milliseconds << " seconds" << '\n';
+    cout << "Comparison: " << count_compare << '\n' << "Assignment: " << count_assign <<'\n';
 
+    delete arr;
     return 0;
 }

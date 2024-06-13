@@ -1,0 +1,2 @@
+
+int* generateRandom(int n);

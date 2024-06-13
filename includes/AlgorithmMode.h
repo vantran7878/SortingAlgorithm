@@ -1,3 +1,3 @@
-typedef void (*function)(int*, int);
+typedef void (*func)(int*, int);
 
-function chooseAlgorithm(char* argv);
+func chooseAlgorithm(char* argv);

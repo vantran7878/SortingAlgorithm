@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-extern int count_assign, count_compare;
+extern unsigned long count_assign, count_compare;
 
 void bubbleSort(int arr[], int n);
 
