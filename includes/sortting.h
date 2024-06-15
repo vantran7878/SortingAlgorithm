@@ -20,3 +20,9 @@ void heapSort(int arr[], int n);
 void selectionSort(int arr[], int n);
 
 void quickSort(int arr[], int n);
+
+void mergeSort(int arr[], int n);
+
+void radixSort(int arr[], int n);
+
+int* merging(int* arr_left, int* arr_right, int n_left, int n_right);

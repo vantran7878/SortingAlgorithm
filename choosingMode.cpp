@@ -4,10 +4,12 @@ const char* MERGE = "merge";
 const char* BUBBLE = "bubble";
 const char* INSERT = "insert";
 const char* SELECT = "select";
+const char* RADIX = "radix";
 const char* HEAP = "heap";
 const char* RANDOM = "random";
 const char* SORTED = "sorted";
 const char* REVERSED = "reversed"; 
+
 
 typedef void (*func)(int*, int);
 typedef int* (*generateFunc)(int);
@@ -19,6 +21,8 @@ func chooseAlgorithm(char* argv)
     else if (strcmp(argv, INSERT) == 0) return insertionSort;
     else if (strcmp(argv, SELECT) == 0) return selectionSort;
     else if (strcmp(argv, QUICK) == 0) return quickSort;
+    else if (strcmp(argv, RADIX) == 0) return radixSort;
+    else if (strcmp(argv, MERGE) == 0) return mergeSort;
     return NULL;
 }
 

@@ -1,5 +1,5 @@
-#include <iostream>
-#include "includes/sortting.h"
+#include "includes/includes.h"
+#include "includes/generateData.h"
 
 using namespace std;
 
@@ -193,4 +193,147 @@ void makeQuickSort(int* arr, int first, int last)
 void quickSort(int* arr, int n)
 {
     makeQuickSort(arr, 0, n - 1);
+}
+
+int* merging(int* arr_left, int* arr_right, int n_left, int n_right)
+{
+    int* new_arr = new int[n_left + n_right];
+    int i_new = 0, i_left = 0, i_right = 0;
+
+    while(i_left < n_left && i_right < n_right)
+    {
+        if (arr_left[i_left] >= arr_right[i_right])
+        {
+            new_arr[i_new] = arr_left[i_left];
+            i_left++;
+        }
+        else 
+        {
+            new_arr[i_new] = arr_right[i_right];
+            i_right++;
+        }
+        i_new++;
+    }
+    
+    while(i_left < n_left)
+    {
+        new_arr[i_new] = arr_left[i_left];
+        i_left++;
+        i_new++;
+    }
+
+    while(i_right < n_right)
+    {
+        new_arr[i_new] = arr_right[i_right];
+        i_right++;
+        i_new++;
+    }
+    return new_arr;
+}
+
+void Merge(int* arr, int left, int mid, int right)
+{
+    int n_left = mid - left + 1, n_right = right - mid;
+    
+    int* arr_left = new int[n_left];
+    int* arr_right = new int[n_right];
+
+    for (int i = 0; i < n_left; ++i)
+        arr_left[i] = arr[left + i];
+    for (int j = 0; j < n_right; ++j)
+        arr_right[j] = arr[mid + j + 1];
+
+    int i = 0, j = 0, k = left;    
+    while(i < n_left && j < n_right)
+    {
+        if (arr_left[i] >= arr_right[j])
+        {
+            arr[k] = arr_left[i];
+            i++;
+        }
+        else
+        {
+            arr[k] = arr_right[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(i < n_left)
+    {
+        arr[k] = arr_left[i];
+        i++;
+        k++;
+    }
+    
+    while(j < n_right)
+    {
+        arr[k] = arr_right[j];
+        j++;
+        k++;
+    }
+    delete[] arr_left;
+    delete[] arr_right;
+}
+
+void mergeSortProcess(int* arr, int left, int right)
+{
+    if (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        mergeSortProcess(arr, left, mid);
+        mergeSortProcess(arr, mid + 1, right);
+        Merge(arr, left, mid, right);
+    }
+}
+
+void mergeSort(int* arr, int n)
+{
+    mergeSortProcess(arr, 0, n - 1);
+}
+
+
+void countingSort(int* arr, int n, int exp)
+{
+    int count[10] = {0}, output[n], i;
+    for (i = 0; i < n; ++i) 
+    {
+        count[(arr[i] / exp) % 10]++; 
+    }
+    for (i = 1; i < 10; ++i)
+    {
+        count[i] += count[i - 1];
+    }
+
+    for (i = n - 1; i >= 0; --i)
+    {
+        output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+        count[(arr[i] / exp) % 10]--;
+    }
+    for (i = 0; i < n; ++i)
+        arr[i] = output[i];
+}
+
+int findMax(int* arr, int n)
+{
+    int max = arr[0];
+    for (int i = 1; i < n; ++i)
+        if (arr[i] > max) max = arr[i];
+    return max;
+}
+
+int findMin(int* arr, int n)
+{
+    int min = arr[0];
+    for (int i = 1; i < n; ++i)
+        if (arr[i] < min) min = arr[i];
+    return min;
+}
+
+void radixSort(int* arr, int n)
+{
+    int m = findMax(arr, n);
+
+    for (int exp = 1; m / exp > 0; exp *= 10) 
+        countingSort(arr, n, exp);
 }
