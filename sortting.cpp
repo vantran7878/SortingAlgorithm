@@ -73,38 +73,45 @@ void insertionSort(int arr[], int n)
 
 void selectionSort(int arr[], int n)
 {
-    for (int i = 0; i < n - 1; ++i)
+    for (int i = 0; ++count_compare && i < n - 1; count_assign && ++i)
     {
-        int max = arr[i];
-        for (int j = i + 1; j < n; ++j)
+        int max = arr[i]; ++count_assign;
+        for (int j = i + 1; ++count_compare &&  j < n; ++count_assign && ++j)
         {
-            if (arr[j] > max)
+            if (++count_compare && arr[j] > max)
             {
-                swap(arr[j], max);
+                swap(arr[j], max); count_assign += 3;
                 //int temp = max;
                 //max = arr[j];
                 //arr[j] = temp;
             }
         }
-        arr[i] = max;
+        arr[i] = max; ++count_assign;
     }
 }
 
 void maxHeapRebuild(int arr[], int n, int pos)
 {
-    bool isHeap = false; 
-    while(!isHeap && 2 * pos + 1 < n)
+    bool isHeap = false; ++count_compare; 
+    while(count_compare += 2 && !isHeap && 2 * pos + 1 < n)
     {
-        int child_index = 2 * pos + 1;                     
-        int child = arr[child_index];                      
-        if (child_index < n - 1)
-            if (child < arr[child_index + 1]) child_index++;   
+        int child_index = 2 * pos + 1; ++count_assign;
+        int child = arr[child_index]; ++count_assign;       
+        if (++count_compare && child_index < n - 1)
+            if (++count_compare && child < arr[child_index + 1]) 
+            {
+                child_index++;   ++count_assign;
+            }
                                                            
-        if (arr[pos] >= arr[child_index]) isHeap = true;    
+        if (++count_compare && arr[pos] >= arr[child_index]) 
+        {
+            isHeap = true;    
+            ++count_assign;
+        }
         else                                               
         {                                                  
-            swap(arr[pos], arr[child_index]);              
-            pos = child_index;       //go to the child node to recreate max heap                      
+            swap(arr[pos], arr[child_index]); count_assign += 3; 
+            pos = child_index; ++count_assign ;      //go to the child node to recreate max heap                      
         }                                                  
     }
 }
@@ -199,34 +206,39 @@ int* merging(int* arr_left, int* arr_right, int n_left, int n_right)
 {
     int* new_arr = new int[n_left + n_right];
     int i_new = 0, i_left = 0, i_right = 0;
+    count_assign += 3;
 
-    while(i_left < n_left && i_right < n_right)
+    while(++count_compare && i_left < n_left && i_right < n_right)
     {
-        if (arr_left[i_left] >= arr_right[i_right])
+        if (++count_compare && arr_left[i_left] >= arr_right[i_right])
         {
             new_arr[i_new] = arr_left[i_left];
             i_left++;
+            count_assign += 2;
         }
         else 
         {
             new_arr[i_new] = arr_right[i_right];
             i_right++;
+            count_assign += 2;
         }
-        i_new++;
+        i_new++; count_assign++;
     }
     
-    while(i_left < n_left)
+    while(++count_compare && i_left < n_left)
     {
         new_arr[i_new] = arr_left[i_left];
         i_left++;
         i_new++;
+        count_assign += 3;
     }
 
-    while(i_right < n_right)
+    while(++count_compare && i_right < n_right)
     {
         new_arr[i_new] = arr_right[i_right];
         i_right++;
         i_new++;
+        count_assign += 3;
     }
     return new_arr;
 }
@@ -234,6 +246,7 @@ int* merging(int* arr_left, int* arr_right, int n_left, int n_right)
 void Merge(int* arr, int left, int mid, int right)
 {
     int n_left = mid - left + 1, n_right = right - mid;
+    count_assign += 3;
     
     int* arr_left = new int[n_left];
     int* arr_right = new int[n_right];
@@ -242,35 +255,42 @@ void Merge(int* arr, int left, int mid, int right)
         arr_left[i] = arr[left + i];
     for (int j = 0; j < n_right; ++j)
         arr_right[j] = arr[mid + j + 1];
+    count_assign += n_left * 2 + n_right * 2;
 
     int i = 0, j = 0, k = left;    
-    while(i < n_left && j < n_right)
+    count_assign += 3;
+
+    while(++count_compare && i < n_left && j < n_right)
     {
-        if (arr_left[i] >= arr_right[j])
+        if (++count_compare && arr_left[i] >= arr_right[j])
         {
             arr[k] = arr_left[i];
             i++;
+            count_assign += 2;
         }
         else
         {
             arr[k] = arr_right[j];
             j++;
+            count_assign += 2;
         }
-        k++;
+        k++; count_assign++;
     }
 
-    while(i < n_left)
+    while(++count_compare && i < n_left)
     {
         arr[k] = arr_left[i];
         i++;
         k++;
+        count_assign += 3;
     }
     
-    while(j < n_right)
+    while(++count_compare && j < n_right)
     {
         arr[k] = arr_right[j];
         j++;
         k++;
+        count_assign += 3;
     }
     delete[] arr_left;
     delete[] arr_right;
@@ -278,9 +298,9 @@ void Merge(int* arr, int left, int mid, int right)
 
 void mergeSortProcess(int* arr, int left, int right)
 {
-    if (left < right)
+    if (++count_compare && left < right)
     {
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left) / 2; ++count_assign;
         mergeSortProcess(arr, left, mid);
         mergeSortProcess(arr, mid + 1, right);
         Merge(arr, left, mid, right);
@@ -296,29 +316,38 @@ void mergeSort(int* arr, int n)
 void countingSort(int* arr, int n, int exp)
 {
     int count[10] = {0}, output[n], i;
-    for (i = 0; i < n; ++i) 
+    count_assign += 11;
+    for (i = 0; ++count_assign && i < n; ++count_assign && ++i) 
     {
-        count[(arr[i] / exp) % 10]++; 
+        count[(arr[i] / exp) % 10]++; count_assign++;
     }
-    for (i = 1; i < 10; ++i)
+    for (i = 1; ++count_compare &&  i < 10; ++count_assign &&  ++i)
     {
         count[i] += count[i - 1];
     }
 
-    for (i = n - 1; i >= 0; --i)
+    for (i = n - 1; ++count_compare && i >= 0; ++count_assign && --i)
     {
-        output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+        output[n - count[(arr[i] / exp) % 10] - 1] = arr[i];
         count[(arr[i] / exp) % 10]--;
+        count_assign += 2;
     }
-    for (i = 0; i < n; ++i)
+    for (i = 0; ++count_compare && i < n; ++count_assign && ++i)
+    {
         arr[i] = output[i];
+        count_assign++;
+    }
 }
 
 int findMax(int* arr, int n)
 {
-    int max = arr[0];
-    for (int i = 1; i < n; ++i)
-        if (arr[i] > max) max = arr[i];
+    int max = arr[0]; ++count_assign;
+    for (int i = 1; ++count_compare && i < n; ++count_assign && ++i)
+        if (++count_compare && arr[i] > max) 
+        {
+            max = arr[i];
+            count_assign++;
+        }
     return max;
 }
 
@@ -333,7 +362,12 @@ int findMin(int* arr, int n)
 void radixSort(int* arr, int n)
 {
     int m = findMax(arr, n);
+    count_assign++;
 
-    for (int exp = 1; m / exp > 0; exp *= 10) 
+    for (int exp = 1; ++count_compare &&  m / exp > 0; exp *= 10) 
+    {
         countingSort(arr, n, exp);
+        count_compare++;
+    }
+    count_compare++;
 }

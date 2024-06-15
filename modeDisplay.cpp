@@ -115,5 +115,7 @@ void displayEntire(char* argv[])
         }
         printResultAll(seconds, milliseconds);
         copyArray(org_arr, arr, n);
+        count_assign = 0;
+        count_compare = 0;
     }
 }
