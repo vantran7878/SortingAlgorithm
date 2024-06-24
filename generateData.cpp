@@ -22,10 +22,26 @@ int* generateReversed(int n)
 
 int* generateSorted(int n)
 {
-    int* arr = new int;
+    int* arr = new int[n];
     for (int i = 0; i < n; ++i)
     {
         arr[i] = n - i;
+    }
+    return arr;
+}
+
+int* generateNearlySorted(int n)
+{
+    int* arr = new int[n];
+    for (int i = 0; i < n; ++i)
+    {
+        arr[i] = n - i;
+    }
+
+    int random = rand() % 1000;
+    for (int i = 0; i < random; ++i)
+    {
+        arr[rand() % n] = rand() % n;
     }
     return arr;
 }

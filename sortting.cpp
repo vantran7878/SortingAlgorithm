@@ -315,7 +315,8 @@ void mergeSort(int* arr, int n)
 
 void countingSort(int* arr, int n, int exp)
 {
-    int count[10] = {0}, output[n], i;
+    int count[10] = {0}, i;
+    int* output = new int[n];
     count_assign += 11;
     for (i = 0; ++count_assign && i < n; ++count_assign && ++i) 
     {
